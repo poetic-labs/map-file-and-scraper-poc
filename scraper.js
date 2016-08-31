@@ -1,11 +1,15 @@
 var path = require('path');
-var mapFilePath = path.resolve('map-file.json');
-var mapFile = require(mapFilePath);
-var url = 'http://app-ypo-v3.webflow.io/';
 var scraper = require('website-scraper');
 var fs = require('fs');
 
+var mapFilePath = path.resolve('map-file.json');
+var mapFile = require(mapFilePath);
+
 console.log(mapFile);
+
+// The scraper below copies an entire site according to the given specifications
+// and writes to an output dir. That dir can't be overwriting another dir, so we
+// must remove /webflow before running each time
 
 // be very careful with this function
 var deleteFolderRecursive = function(path) {
@@ -26,30 +30,14 @@ var deleteFolderRecursive = function(path) {
 
 deleteFolderRecursive('./webflow');
 
-// Downloads all the crawlable files of example.com.
-// The files are saved in the same structure as the structure of the website, by using the `bySiteStructure` filenameGenerator.
-// Links to other websites are filtered out by the urlFilter
+// Get site by page url from mapFile
+var mapFileUrls = mapFile.pages.map(function(page) {
+  return { url: page.url, filename: page.filename };
+});
 
-// scraper.scrape({
-  // urls: [url],
-  // urlFilter: function(url){
-      // return url.indexOf(url) === 0;
-  // },
-  // recursive: true,
-  // maxDepth: 100,
-  // prettifyUrls: true,
-  // filenameGenerator: 'bySiteStructure',
-  // directory: './webflow'
-// }).then(console.log).catch(console.log);
-
-// Get site by page name
+// scrape each url and write to webflow/
 scraper.scrape({
-  urls: [
-    url,   // Will be saved with default filename 'index.html'
-    {url: url + '/about-developer', filename: 'about-developer.html'},
-    {url: url + '/users', filename: 'users.html'},
-    {url: url + '/events', filename: 'events.html'},
-  ],
+  urls: mapFileUrls,
   urlFilter: function(url){
       return url.indexOf(url) === 0;
   },
