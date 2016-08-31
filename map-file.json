@@ -9,8 +9,8 @@
   "pages": [
     {
       "_comment": "This page is an example and not a real page from YPO.",
-      "url":"http://app-ypo-v3.webflow.io/about-developer",
-      "filename":"about-developer.html",
+      "url": "http://app-ypo-v3.webflow.io/about-developer",
+      "filename": "about-developer.html",
       "componentDefinitions": {
         "NavBar": {
           "imports": [
@@ -38,7 +38,7 @@
             "animation":"slideUp"
           },
           "primary": true,
-          "path": "users",
+          "path": "users"
         },
         "ExampleCustomComponent": {
           "props": {

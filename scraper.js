@@ -5,8 +5,7 @@ var url = 'http://app-ypo-v3.webflow.io/';
 var scraper = require('website-scraper');
 var fs = require('fs');
 
-console.log(typeof mapFile);
-console.log(mapFile.URLS);
+console.log(mapFile);
 
 // be very careful with this function
 var deleteFolderRecursive = function(path) {
