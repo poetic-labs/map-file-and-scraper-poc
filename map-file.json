@@ -1,29 +1,12 @@
 {
   "_comments": [
     "Each page will be an object with basic page info and the component/data definitions",
-    "Uses className to target components and other data values. Could be some other mechanism",
-    "How do we convert props from the target element to the component? (Example: SuperImage)."
+    "Uses class to target components and other data values. Could be some other mechanism.",
+    "How do we distinguish between divs with the same class? Designer adds special class? How is this different from a data component declaration?",
+    "How do we convert props from the target element to the component? (Example: SuperImage).",
+    "What does a component declaration without any props or special config look like? Empty object?"
   ],
   "pages": [
-    {
-      "_comment": "This page is for the index of YPO.",
-      "url":"http://app-ypo-v3.webflow.io/",
-      "filename":"index.html",
-      "componentDefinitions": {
-        "SuperImage": {
-          "source": "npm or giturl"
-        }
-      },
-      "conversions": {
-        "img": {
-          "name": "SuperImage",
-          "attributes": {
-            "src": "source",
-            "alt": "alternative"
-          }
-        }
-      }
-    },
     {
       "_comment": "This page is an example and not a real page from YPO.",
       "url":"http://app-ypo-v3.webflow.io/about-developer",
@@ -65,7 +48,7 @@
           "wrapper": true
         },
         "SuperImage": {
-          "source": "npm or giturl",
+          "source": "NPM",
           "props": {
             "source":"src",
             "alt":"alt"
@@ -100,6 +83,108 @@
         "div": {
           "target/class": "nav-email",
           "data": "user-email"
+        }
+      }
+    },
+    {
+      "_comment": "This page is for the events page of YPO.",
+      "url":"http://app-ypo-v3.webflow.io/events",
+      "filename":"events.html",
+      "componentDefinitions": {
+        "EventsView": {
+        },
+        "AddNewEvent": {
+        },
+        "UpcomingEvents": {
+        },
+        "EventsList": {
+        },
+        "MonthHeader": {
+        },
+        "EventsListItem": {
+        },
+        "NoUpcomingEvents": {
+        },
+        "PastEvents": {
+        },
+        "NoPastEvents": {
+        },
+        "NavBar": {
+        },
+        "NavBarUsers": {
+        },
+        "NavBarEvents": {
+        },
+        "NavBarMessage": {
+        },
+        "NavBarSettings": {
+        }
+      },
+      "conversions": {
+        "div": {
+          "target/class": "content-container smooth-scroll",
+          "component": "EventsView"
+        },
+        "div": {
+          "target/class": "background-tertiary link",
+          "component": "AddNewEvent"
+        },
+        "div": {
+          "_comment": "This component has no class.",
+          "target/class": "",
+          "component": "UpcomingEvents"
+        },
+        "div": {
+          "_comment": "This component has no class.",
+          "target/class": "",
+          "component": "EventsList"
+        },
+        "div": {
+          "target/class": "title-band",
+          "component": "MonthHeader"
+        },
+        "div": {
+          "target/class": "border event-list-height field",
+          "component": "EventsListItem"
+        },
+        "div": {
+          "target/class": "no-events",
+          "component": "NoUpcomingEvents"
+        },
+        "div": {
+          "_comment": "This component has no class.",
+          "target/class": "",
+          "component": "PastEvents"
+        },
+        "div": {
+          "_comment": "This component has no class.",
+          "target/class": "",
+          "component": "EventsList"
+        },
+        "div": {
+          "target/class": "nav-link w-inline-block",
+          "component": "NavBarUsers"
+        },
+        "div": {
+          "_comment": "This component has no class.",
+          "target/class": "",
+          "component": "NavBar"
+        },
+        "a": {
+          "target/class": "nav-link w-inline-block",
+          "component": "NavBarUsers"
+        },
+        "a": {
+          "target/class": "nav-link w-inline-block",
+          "component": "NavBarEvents"
+        },
+        "a": {
+          "target/class": "message-icon nav-link w-inline-block",
+          "component": "NavBarMessage"
+        },
+        "a": {
+          "target/class": "nav-link w-inline-block",
+          "component": "NavBarSettings"
         }
       }
     }
