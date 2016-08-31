@@ -2,10 +2,11 @@
   "_comments": [
     "Each page will be an object with basic page info and the component/data definitions",
     "Uses className to target components and other data values. Could be some other mechanism",
-    "Props could be an object or an array"
+    "How do we convert props from the target element to the component? (Example: SuperImage)."
   ],
-  "pages":[
+  "pages": [
     {
+      "_comment": "This page is for the index of YPO.",
       "url":"http://app-ypo-v3.webflow.io/",
       "filename":"index.html",
       "componentDefinitions": {
@@ -24,165 +25,83 @@
       }
     },
     {
+      "_comment": "This page is an example and not a real page from YPO.",
       "url":"http://app-ypo-v3.webflow.io/about-developer",
       "filename":"about-developer.html",
       "componentDefinitions": {
         "NavBar": {
-          "nodeType":"div",
-
-          "className":"nav-bar",
-          "imports":"example-NPM-package",
-          "props": [
+          "imports": [
             {
-              "homeRoute":"index"
+              "name":"example-NPM-package",
+              "source":"NPM"
             },
             {
-              "animation":"fade"
+              "name":"example generated component",
+              "source":"generated"
+            },
+            {
+              "name":"example custom component",
+              "source":"custom"
             }
-          ]
+          ],
+          "props": {
+            "homeRoute":"index",
+            "animation":"fade"
+          }
         },
+        "NavBarUsers": {
+          "props": {
+            "route":"users",
+            "animation":"slideUp"
+          },
+          "primary": true,
+          "path": "users",
+        },
+        "ExampleCustomComponent": {
+          "props": {
+            "madeByDev":true
+          },
+          "custom": true,
+          "wrapper": true
+        },
+        "SuperImage": {
+          "source": "npm or giturl",
+          "props": {
+            "source":"src",
+            "alt":"alt"
+          }
+        }
       },
       "dataDefinitions": {
-        "firstName": {
-
-        }
-        "value": {
-
-        }
-        "className":"user-info",
-
-
+        "user-name": "name",
+        "user-email": "email"
       },
       "conversions": {
+        "div": {
+          "target/class": "nav-bar",
+          "component": "NavBar"
+        },
+        "div": {
+          "target/class": "nav-link w-inline-block",
+          "component": "NavBarUsers"
+        },
+        "input": {
+          "target/class": "custom-input-component",
+          "component": "ExampleCustomComponent"
+        },
         "img": {
-          "name": "SuperImage",
-          "attributes": {
-            "src": "source",
-            "alt": "alternative"
-         }
+          "component": "SuperImage",
+          "_comment": "Perhaps the predefined props for SuperImage will just be taken straight from the node?"
+        },
+        "div": {
+          "target/class": "nav-name",
+          "data": "user-name"
+        },
+        "div": {
+          "target/class": "nav-email",
+          "data": "user-email"
         }
       }
-    },
+    }
   ]
-}
-
-  <div class="poetic-office">
-    <div class="flexbox">
-      <div class="nav-bar">
-        <div className="NavBar" data-component-name="NavBar">
-          <div class="flex-nav">
-            <a class="nav-link w-inline-block" data-component-name="NavBarUsers" href="users.html">
-              <div class="nav-column"><img src="images/directory-icon.png" width="24">
-              </div>
-            </a>
-            <a class="nav-link w-inline-block" data-component-name="NavBarEvents" href="events.html">
-              <div class="nav-column"><img src="images/events-icon.png" width="24">
-                <div class="attention-dot"><img src="images/attention-dot.png" width="10">
-                </div>
-              </div>
-            </a>
-            <a class="message-icon nav-link w-inline-block" data-component-name="NavBarMessage" href="send-sms-admin.html">
-              <div class="nav-column"><img src="images/messages-icon-grey.png" width="26">
-              </div>
-            </a>
-            <a class="nav-link w-inline-block" data-component-name="NavBarSettings" href="about-developer.html">
-              <div class="nav-column"><img src="images/settings-icon.png" width="24">
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-data-component-name
-
-This attribute tells reacterminator that the html is a react component.
-
-data-component-props
-
-FROM:
-
-<div data-component-name="ComponentA" data-component-props="isBoolean lastName={'Poetic'}"/>
-TO:
-
-<ComponentA isBoolean lastName={'Poetic'}/>
-data-component-primary
-
-FROM:
-
-<div data-component-name="Unicorn"/>
-<div data-component-name="Unicorn" data-component-primary="true" class="primary" />
-TO:
-
-<div className="primary" />
-data-component-wrapper
-
-FROM:
-
-<div data-component-wrapper="ComponentA"/>
-TO: <ComonentA/>
-
-data-component-imports
-
-FROM:
-
-<div data-component-imports="import {Router} from 'react-router'; import _ from 'lodash';"/>
-TO:
-
-import {Router} from 'react-router';
-import _ from 'lodash';
-data-component-value
-
-FROM:
-
-<div data-component-value="{firstName}">Poetic</div>
-TO:
-
-<div>{firstName}</div>
-data-component-path
-
-FROM:
-
-<div
-  data-component-name="Login"
-  data-component-path="login">
-</div>
-TO:
-
-// App.jsx
-import React from 'react';
-import LoginContainer from './LoginContainer';
-
-export default class App extends React.Component {
-  render () {
-    return (
-      <div>
-        <LoginContainer/>
-      </div>
-    )
-  }
-}
-data-component-custom
-
-FROM:
-
-// data-component-custom.html
-<html>
-<body>
-  <div data-component-name="Login" data-component-custom="true">
-    <form>
-      <input type="text" id="user" />
-    </form>
-  </div>
-</body>
-</html>
-TO:
-
-// DataComponentCustom.jsx
-import React from 'react';
-
-export default class DataComponentCustom extends React.Component {
-  render () {
-    return <div><Login/></div>;
-  }
 }
